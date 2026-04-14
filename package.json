@@ -1,0 +1,10 @@
+{
+  "name": "grip-banner-generator",
+  "version": "1.0.0",
+  "description": "GripPay 광고 배너 생성기 — 정사각형(500×500) · 직사각형(1200×600) PNG 자동 생성 툴",
+  "scripts": {
+    "start": "npx http-server . -p 3000 -o --cors -c-1"
+  },
+  "keywords": ["banner", "grippay", "ad-generator"],
+  "license": "UNLICENSED"
+}

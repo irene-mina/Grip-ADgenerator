@@ -73,36 +73,36 @@
 
 ## 로컬에서 실행하기
 
-GitHub Pages 배포 버전 외에 로컬에서 직접 실행할 수 있습니다.  
-ES Modules 사용으로 **반드시 로컬 서버** 경유 실행이 필요합니다 (파일 직접 열기 불가).
+### 빠른 시작 (Mac / Windows 공통)
 
-### Mac
+Node.js가 설치되어 있으면 아래 명령어 하나로 끝납니다.  
+서버 실행 후 브라우저가 **자동으로 열립니다.**
 
 ```bash
-# 방법 1 — Python (기본 내장)
-cd ad-banner-generator
+git clone https://github.com/irene-mina/Grip-ADgenerator.git
+cd Grip-ADgenerator
+npm start
+```
+
+> Node.js 미설치 시 → [nodejs.org](https://nodejs.org) 에서 LTS 버전 설치 후 진행
+
+---
+
+### 대안: Python (Node.js 없을 때)
+
+```bash
+# Mac
+cd Grip-ADgenerator
 python3 -m http.server 3000
 # 브라우저: http://localhost:3000
 
-# 방법 2 — Node.js
-npx http-server . -p 3000
+# Windows
+cd Grip-ADgenerator
+python -m http.server 3000
 # 브라우저: http://localhost:3000
 ```
 
-### Windows
-
-```cmd
-:: 방법 1 — Python
-cd ad-banner-generator
-python -m http.server 3000
-:: 브라우저: http://localhost:3000
-
-:: 방법 2 — Node.js (PowerShell)
-npx http-server . -p 3000
-:: 브라우저: http://localhost:3000
-```
-
-### VS Code 사용 시 (Mac / Windows 공통)
+### VS Code 사용 시
 1. [Live Server 확장 설치](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
 2. `index.html` 우클릭 → **"Open with Live Server"**
 
