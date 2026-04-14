@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>배너 생성기</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Sandoll Nemony 02 Oblique';
+      font-style:  normal;
+      font-weight: 400;
+      src: local('Sandoll Nemony 02 Oblique'),
+           local('SandollNemony02-Oblique'),
+           url('./fonts/SandollNemony02-Oblique.woff2') format('woff2'),
+           url('./fonts/SandollNemony02-Oblique.woff')  format('woff'),
+           url('./fonts/SandollNemony02-Oblique.otf')   format('opentype');
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="loading" class="loading hidden">
+    <div class="spinner"></div>
+    <div id="loadingText">처리 중...</div>
+  </div>
+
+  <header class="header">
+    <div class="header__left">
+      <img src="./assets/logo.svg" alt="GripPay" class="header__logo">
+      <span class="header__service-name">배너 생성기</span>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- 좌측: 입력 패널 -->
+    <aside class="panel-input" id="inputPanel"></aside>
+
+    <!-- 우측: 두 배너 모두 표시 -->
+    <main class="panel-preview">
+
+      <!-- 정사각형 -->
+      <div class="preview-item" id="previewitem_square-500">
+        <p class="preview-label">정사각형 (500 × 500)</p>
+        <div class="preview-card" id="previewcard_square-500">
+          <div id="banner_square-500"></div>
+        </div>
+        <div class="export-row">
+          <div class="scale-picker" id="scalepicker_square-500">
+            <button class="scale-btn" data-scale="1">1×</button>
+            <button class="scale-btn active" data-scale="2">2×</button>
+            <button class="scale-btn" data-scale="3">3×</button>
+          </div>
+          <button id="btnExport_square-500" class="btn-export">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            PNG 내보내기
+          </button>
+        </div>
+      </div>
+
+      <!-- 직사각형 -->
+      <div class="preview-item" id="previewitem_horizontal-1200">
+        <p class="preview-label">직사각형 (1200 × 600)</p>
+        <div class="preview-card" id="previewcard_horizontal-1200">
+          <div id="banner_horizontal-1200"></div>
+        </div>
+        <div class="export-row">
+          <div class="scale-picker" id="scalepicker_horizontal-1200">
+            <button class="scale-btn" data-scale="1">1×</button>
+            <button class="scale-btn active" data-scale="2">2×</button>
+            <button class="scale-btn" data-scale="3">3×</button>
+          </div>
+          <button id="btnExport_horizontal-1200" class="btn-export">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            PNG 내보내기
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

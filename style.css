@@ -1,0 +1,663 @@
+/* ============================================================
+ * style.css — 앱 UI (GripPay 디자인 토큰 기반)
+ * ============================================================ */
+
+/* ── GripPay 디자인 토큰 ── */
+:root {
+  /* 배경 */
+  --bg-100:    #ffffff;
+  --bg-200:    #f7f7f9;
+  --bg-300:    #eff0f4;
+
+  /* 텍스트 */
+  --font-title:   #0e1011;
+  --font-body:    #222327;
+  --font-subtle:  #5d5e66;
+  --font-caption: #7a7a80;
+  --font-hint:    #9a9a9e;
+  --font-disabled:#bebfc2;
+
+  /* 테두리 */
+  --st-300: #eff0f4;
+  --st-400: #e7e8ed;
+
+  /* 브랜드 */
+  --brand:     #eb2b51;
+  --brand-btn: #ff286a;
+  --brand-bg:  #ffebf1;
+
+  /* 반경 (PC) */
+  --r-sm:   6px;
+  --r-md:   8px;
+  --r-lg:   12px;
+  --r-full: 99px;
+
+  /* 간격 */
+  --gap-box:   16px;
+  --gap-group: 20px;
+  --pad-h:     24px;
+
+  /* 폰트 */
+  --font: 'Pretendard', sans-serif;
+}
+
+/* ── 리셋 ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg-200);
+  color: var(--font-body);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+ * 헤더
+ * ============================================================ */
+.header {
+  height: 52px;
+  background: var(--bg-100);
+  border-bottom: 1px solid var(--st-400);
+  padding: 0 var(--pad-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  gap: var(--gap-box);
+}
+
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header__logo {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+.header__service-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--font-caption);
+  padding-left: 10px;
+  border-left: 1px solid var(--st-400);
+  margin-left: 4px;
+  letter-spacing: -0.1px;
+}
+
+/* ============================================================
+ * 메인 레이아웃
+ * ============================================================ */
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ============================================================
+ * 좌측: 입력 패널
+ * ============================================================ */
+.panel-input {
+  background: var(--bg-100);
+  border-right: 1px solid var(--st-400);
+  overflow-y: auto;
+  padding: var(--gap-box) var(--pad-h);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* 섹션 제목 */
+.field-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--font-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  padding: 14px 0 6px;
+  border-top: 1px solid var(--st-400);
+  margin-top: 6px;
+}
+
+.field-section-title:first-child {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* 필드 그룹 */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 4px;
+}
+
+.field-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--font-subtle);
+}
+
+/* 텍스트 / 텍스트에리어 입력 */
+.field-group input[type="text"],
+.field-group textarea {
+  width: 100%;
+  padding: 9px 12px;
+  background: var(--bg-200);
+  border: 1.5px solid var(--st-400);
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-family: var(--font);
+  color: var(--font-body);
+  transition: border-color 0.15s, background 0.15s;
+  resize: vertical;
+}
+
+.field-group input[type="text"]::placeholder,
+.field-group textarea::placeholder {
+  color: var(--font-hint);
+}
+
+.field-group input[type="text"]:focus,
+.field-group textarea:focus {
+  outline: none;
+  border-color: var(--brand);
+  background: var(--bg-100);
+}
+
+/* ── 타이틀 멀티라인 textarea ── */
+.title-textarea {
+  width: 100%;
+  padding: 9px 12px;
+  background: var(--bg-200);
+  border: 1.5px solid var(--st-400);
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-family: var(--font);
+  color: var(--font-body);
+  transition: border-color 0.15s, background 0.15s;
+  resize: none;
+  line-height: 1.5;
+}
+.title-textarea::placeholder { color: var(--font-hint); }
+.title-textarea:focus {
+  outline: none;
+  border-color: var(--brand);
+  background: var(--bg-100);
+}
+
+/* ── 이미지 업로드 존 ── */
+.upload-zone {
+  position: relative;
+  border: 1.5px dashed var(--st-400);
+  border-radius: var(--r-md);
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-200);
+}
+
+.upload-zone:hover {
+  border-color: var(--brand);
+  background: var(--brand-bg);
+}
+
+.upload-zone.has-image {
+  border-style: solid;
+  border-color: var(--brand);
+  background: var(--bg-100);
+  padding: 8px;
+}
+
+.upload-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  color: var(--font-hint);
+  pointer-events: none;
+}
+
+.upload-label svg { opacity: 0.6; }
+
+.upload-label span {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.upload-label .hint {
+  font-size: 11px;
+  color: var(--font-disabled);
+}
+
+/* ── 컬러피커 ── */
+.color-picker-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color-picker-row input[type="color"] {
+  width: 36px;
+  height: 36px;
+  padding: 2px;
+  border: 1.5px solid var(--st-400);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  background: none;
+}
+
+.color-picker-value {
+  font-size: 13px;
+  color: var(--font-caption);
+  font-family: monospace;
+  min-width: 56px;
+}
+
+.color-picker-reset {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border: 1.5px solid var(--st-400);
+  border-radius: var(--r-sm);
+  background: var(--bg-100);
+  cursor: pointer;
+  color: var(--font-subtle);
+  font-family: var(--font);
+  transition: background 0.12s, border-color 0.12s;
+}
+.color-picker-reset:hover {
+  background: var(--bg-200);
+  border-color: var(--font-hint);
+}
+
+/* ── 로컬 폰트 로더 ── */
+.font-loader-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-load-fonts {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 11px;
+  background: var(--bg-200);
+  border: 1.5px solid var(--st-400);
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font);
+  color: var(--font-subtle);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+.btn-load-fonts:hover {
+  background: var(--brand-bg);
+  border-color: var(--brand);
+  color: var(--brand);
+}
+.btn-load-fonts:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.font-load-status {
+  font-size: 11px;
+  color: var(--font-caption);
+  line-height: 1.4;
+  min-width: 0;
+}
+
+/* ── 폰트 컨트롤 행 (텍스트 인풋 아래 인라인) ── */
+.font-ctrl-row {
+  display: flex;
+  gap: 4px;
+  align-items: stretch;
+  margin-top: 2px;
+}
+
+/* datalist 연결 폰트 패밀리 인풋 */
+.font-ctrl-input {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  padding: 0 8px;
+  background: var(--bg-200);
+  border: 1.5px solid var(--st-400);
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  font-family: var(--font);
+  color: var(--font-body);
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.font-ctrl-input:focus {
+  outline: none;
+  border-color: var(--brand);
+  background-color: var(--bg-100);
+}
+
+.font-ctrl-select {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  padding: 0 22px 0 8px;
+  background: var(--bg-200);
+  border: 1.5px solid var(--st-400);
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  font-family: var(--font);
+  color: var(--font-body);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239a9a9e' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 5px center;
+  transition: border-color 0.15s, background-color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.font-ctrl-select:focus {
+  outline: none;
+  border-color: var(--brand);
+  background-color: var(--bg-100);
+}
+
+.font-ctrl-size-wrap {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 6px;
+  gap: 2px;
+  background: var(--bg-200);
+  border: 1.5px solid var(--st-400);
+  border-radius: var(--r-sm);
+  flex-shrink: 0;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.font-ctrl-size-wrap:focus-within {
+  border-color: var(--brand);
+  background-color: var(--bg-100);
+}
+
+.font-ctrl-size {
+  width: 32px;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-family: monospace;
+  font-weight: 600;
+  color: var(--font-body);
+  text-align: center;
+  padding: 0;
+}
+.font-ctrl-size:focus { outline: none; }
+.font-ctrl-size::-webkit-inner-spin-button,
+.font-ctrl-size::-webkit-outer-spin-button { -webkit-appearance: none; }
+.font-ctrl-size[type=number] { -moz-appearance: textfield; }
+
+.font-ctrl-unit {
+  font-size: 11px;
+  color: var(--font-hint);
+  font-family: monospace;
+  flex-shrink: 0;
+}
+
+/* ── 이미지 크기 슬라이더 ── */
+.range-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.range-row input[type="range"] {
+  flex: 1;
+  cursor: pointer;
+  accent-color: var(--brand);
+  height: 4px;
+}
+
+.range-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--font-caption);
+  font-family: monospace;
+  min-width: 38px;
+  text-align: right;
+}
+
+/* ── API 키 섹션 ── */
+.apikey-row {
+  display: flex;
+  gap: 6px;
+}
+
+.apikey-row input[type="password"] {
+  flex: 1;
+  padding: 9px 12px;
+  background: var(--bg-200);
+  border: 1.5px solid var(--st-400);
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-family: var(--font);
+  color: var(--font-body);
+  transition: border-color 0.15s;
+}
+
+.apikey-row input[type="password"]:focus {
+  outline: none;
+  border-color: var(--brand);
+  background: var(--bg-100);
+}
+
+.btn-apikey-save {
+  padding: 9px 14px;
+  background: var(--brand);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.btn-apikey-save:hover { opacity: 0.88; }
+
+.apikey-status {
+  font-size: 12px;
+  color: var(--font-caption);
+  line-height: 1.5;
+}
+
+.apikey-status a {
+  color: var(--brand);
+  text-decoration: none;
+  font-weight: 500;
+}
+.apikey-status a:hover { text-decoration: underline; }
+
+/* ── 누끼 상태 ── */
+.nuki-status {
+  font-size: 12px;
+  color: var(--font-caption);
+  text-align: center;
+  min-height: 16px;
+  padding: 2px 0;
+}
+
+/* ============================================================
+ * 우측: 미리보기 패널 (두 배너 동시 표시)
+ * ============================================================ */
+.panel-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 32px var(--pad-h);
+  background: var(--bg-300);
+  /* 체크보드 패턴 (투명도 확인용) */
+  background-image:
+    linear-gradient(45deg, #e4e5ea 25%, transparent 25%),
+    linear-gradient(-45deg, #e4e5ea 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e4e5ea 75%),
+    linear-gradient(-45deg, transparent 75%, #e4e5ea 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+  background-color: var(--bg-300);
+  overflow: auto;
+}
+
+/* 배너 + 라벨 + 버튼 묶음 */
+.preview-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.preview-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--font-caption);
+  letter-spacing: 0.3px;
+}
+
+.preview-card {
+  position: relative;
+  background: transparent;
+  box-shadow: 0 4px 24px rgba(14, 16, 17, 0.15), 0 1px 4px rgba(14, 16, 17, 0.08);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  line-height: 0;
+}
+
+/* ── 내보내기 행 (scale picker + 버튼) ── */
+.export-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* scale 선택 버튼 그룹 */
+.scale-picker {
+  display: flex;
+  border: 1.5px solid var(--st-400);
+  border-radius: var(--r-full);
+  overflow: hidden;
+  background: var(--bg-100);
+}
+
+.scale-btn {
+  padding: 0 12px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font);
+  color: var(--font-caption);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  white-space: nowrap;
+}
+.scale-btn + .scale-btn {
+  border-left: 1.5px solid var(--st-400);
+}
+.scale-btn:hover { background: var(--bg-200); }
+.scale-btn.active {
+  background: var(--brand);
+  color: #fff;
+}
+
+/* ── 내보내기 버튼 ── */
+.btn-export {
+  padding: 10px 20px;
+  background: var(--brand);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-full);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.15s, transform 0.1s;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+}
+
+.btn-export:hover  { opacity: 0.88; }
+.btn-export:active { transform: scale(0.97); }
+
+.btn-export svg {
+  width: 14px;
+  height: 14px;
+}
+
+
+/* ============================================================
+ * 로딩 오버레이
+ * ============================================================ */
+.loading {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 16, 17, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  z-index: 9999;
+}
+
+.loading.hidden { display: none; }
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 2.5px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+#loadingText {
+  color: #fff;
+  font-size: 14px;
+  font-family: var(--font);
+  font-weight: 500;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
