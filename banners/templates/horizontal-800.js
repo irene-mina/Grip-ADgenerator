@@ -222,15 +222,15 @@ const BANNER_CSS = `
   font-family: 'Pretendard', sans-serif;
   letter-spacing: 0.8px;
   line-height: 1.26;
+  white-space: nowrap;
   margin: 0;
-  width: 100%;
 }
 
 .brect1200__title {
   color: #ffffff;
   letter-spacing: 0.9px;
   line-height: 1.26;
-  word-break: keep-all;
+  white-space: nowrap;
   margin: 0;
 }
 `;
