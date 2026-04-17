@@ -20,14 +20,30 @@ import { exportToPng }            from './engines/export.js';
  * ============================================================ */
 
 // 공유 필드: 한 쪽에서 바꾸면 모든 배너에 반영
+// title/subtitle은 프리뷰 직접 편집으로 배너별 독립 관리
 const SHARED_FIELDS = new Set([
   'product', 'productNuki',
   'productNaturalWidth', 'productNaturalHeight',
   'productScale',
-  'subtitle', 'title', 'bgColor',
+  'bgColor',
   'subtitleFontFamily', 'subtitleFontSize', 'subtitleFontWeight',
   'titleFontFamily',    'titleFontSize',    'titleFontWeight',
 ]);
+
+// 프리뷰에서 텍스트 직접 편집 중인 템플릿 ID 추적
+const editingTemplates = new Set();
+
+// 배너별 텍스트 요소 셀렉터
+const TEXT_SELECTORS = {
+  'square-500':      [
+    { sel: '.bsq500__subtitle',    field: 'subtitle' },
+    { sel: '.bsq500__title',       field: 'title'    },
+  ],
+  'horizontal-1200': [
+    { sel: '.brect1200__subtitle', field: 'subtitle' },
+    { sel: '.brect1200__title',    field: 'title'    },
+  ],
+};
 
 // 각 템플릿의 state (panX/Y는 독립)
 const states = {};
@@ -368,7 +384,12 @@ function createFieldElement(field) {
           }
         }
       }
-      setField(field.id, e.target.value);
+      // title/subtitle은 SHARED_FIELDS에서 제외 — 사이드바에서 타이핑 시 모든 배너에 동시 반영
+      if (field.id === 'title' || field.id === 'subtitle') {
+        for (const t of TEMPLATES) states[t.meta.id][field.id] = e.target.value;
+      } else {
+        setField(field.id, e.target.value);
+      }
       renderAll();
     });
 
@@ -550,13 +571,76 @@ function syncColorPicker(fieldId, value) {
  * ============================================================ */
 function renderAll() {
   for (const t of TEMPLATES) {
+    if (editingTemplates.has(t.meta.id)) continue; // 직접 편집 중이면 스킵
     const container = document.getElementById(`banner_${t.meta.id}`);
     if (!container) continue;
     t.render(container, states[t.meta.id]);
     if (typeof t.bindInteractions === 'function') {
       t.bindInteractions(container, states[t.meta.id], null);
     }
+    bindContentEditable(container, t.meta.id);
   }
+}
+
+/* 프리뷰 텍스트 직접 편집 — 배너별 독립 줄 바꿈 */
+function bindContentEditable(container, templateId) {
+  const entries = TEXT_SELECTORS[templateId];
+  if (!entries) return;
+
+  for (const { sel, field } of entries) {
+    const el = container.querySelector(sel);
+    if (!el) continue;
+
+    el.contentEditable = 'true';
+    el.spellcheck      = false;
+    el.style.outline   = 'none';
+    el.style.cursor    = 'text';
+
+    // Enter → <br> 삽입 (div/p 생성 방지)
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const sel2 = window.getSelection();
+        if (!sel2.rangeCount) return;
+        const range = sel2.getRangeAt(0);
+        range.deleteContents();
+        const br = document.createElement('br');
+        range.insertNode(br);
+        range.setStartAfter(br);
+        range.setEndAfter(br);
+        sel2.removeAllRanges();
+        sel2.addRange(range);
+      }
+    });
+
+    el.addEventListener('focus', () => {
+      editingTemplates.add(templateId);
+    });
+
+    el.addEventListener('input', () => {
+      states[templateId][field] = readEditable(el);
+    });
+
+    el.addEventListener('blur', () => {
+      editingTemplates.delete(templateId);
+      states[templateId][field] = readEditable(el);
+      // 이 배너만 재렌더
+      const c = document.getElementById(`banner_${templateId}`);
+      if (!c) return;
+      const t = TEMPLATES.find(t => t.meta.id === templateId);
+      if (!t) return;
+      t.render(c, states[templateId]);
+      t.bindInteractions?.(c, states[templateId], null);
+      bindContentEditable(c, templateId);
+    });
+  }
+}
+
+/* contenteditable 내용 → 순수 텍스트(\n 포함) */
+function readEditable(el) {
+  const clone = el.cloneNode(true);
+  clone.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
+  return clone.textContent;
 }
 
 
