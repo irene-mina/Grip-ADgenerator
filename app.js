@@ -594,6 +594,15 @@ function bindContentEditable(container, templateId) {
     el.contentEditable = 'true';
     el.spellcheck      = false;
     el.style.cursor    = 'text';
+    el.style.borderRadius = '3px';
+    el.style.transition   = 'background 0.15s';
+
+    el.addEventListener('mouseover', () => {
+      if (document.activeElement !== el) el.style.background = 'rgba(255,255,255,0.12)';
+    });
+    el.addEventListener('mouseout', () => {
+      if (document.activeElement !== el) el.style.background = '';
+    });
 
     // Enter → <br> 삽입 (div/p 생성 방지)
     el.addEventListener('keydown', (e) => {
@@ -614,6 +623,7 @@ function bindContentEditable(container, templateId) {
 
     el.addEventListener('focus', () => {
       editingTemplates.add(templateId);
+      el.style.background = 'rgba(255,255,255,0.18)';
     });
 
     el.addEventListener('input', () => {
@@ -622,6 +632,7 @@ function bindContentEditable(container, templateId) {
 
     el.addEventListener('blur', () => {
       editingTemplates.delete(templateId);
+      el.style.background = '';
       states[templateId][field] = readEditable(el);
       // 이 배너만 재렌더
       const c = document.getElementById(`banner_${templateId}`);
