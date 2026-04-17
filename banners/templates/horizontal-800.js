@@ -205,10 +205,10 @@ const BANNER_CSS = `
 
 .brect1200__text {
   position: absolute;
-  left:      113px;
+  left:      60px;
   top:       50%;
   transform: translateY(-50%);
-  width:     480px;
+  width:     540px;
   display:   flex;
   flex-direction: column;
   align-items: center;
@@ -222,7 +222,8 @@ const BANNER_CSS = `
   font-family: 'Pretendard', sans-serif;
   letter-spacing: 0.8px;
   line-height: 1.26;
-  white-space: nowrap;
+  word-break: break-all;
+  width: 100%;
   margin: 0;
 }
 
@@ -230,7 +231,8 @@ const BANNER_CSS = `
   color: #ffffff;
   letter-spacing: 0.9px;
   line-height: 1.26;
-  white-space: nowrap;
+  word-break: break-all;
+  width: 100%;
   margin: 0;
 }
 `;
