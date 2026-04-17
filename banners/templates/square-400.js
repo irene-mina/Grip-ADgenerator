@@ -230,7 +230,7 @@ const BANNER_CSS = `
   font-family: 'Pretendard', sans-serif;
   letter-spacing: 0.5px;
   line-height: 1.26;
-  white-space: nowrap;
+  word-break: break-all;
   margin: 0;
 }
 
@@ -238,7 +238,7 @@ const BANNER_CSS = `
   color: #ffffff;
   letter-spacing: 0.7px;
   line-height: 1.26;
-  white-space: nowrap;
+  word-break: break-all;
   margin: 0;
 }
 
