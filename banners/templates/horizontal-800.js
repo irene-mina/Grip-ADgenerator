@@ -205,10 +205,10 @@ const BANNER_CSS = `
 
 .brect1200__text {
   position: absolute;
-  left:      60px;
+  left:      45px;
   top:       50%;
   transform: translateY(-50%);
-  width:     540px;
+  width:     650px;
   display:   flex;
   flex-direction: column;
   align-items: center;
