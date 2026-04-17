@@ -318,9 +318,17 @@ function createFieldElement(field) {
                placeholder="${attr(field.placeholder ?? '')}"
                value="${attr(textDef)}">`;
 
+    const charlimitHtml = field.multiline ? `
+      <div class="charlimit-row">
+        <label class="charlimit-label" for="charlimit_${field.id}">줄당 글자수</label>
+        <input type="number" class="charlimit-input" id="charlimit_${field.id}"
+               min="1" max="50" placeholder="제한없음">
+      </div>` : '';
+
     wrap.innerHTML = `
       <label>${field.label}</label>
       ${textInputHtml}
+      ${charlimitHtml}
       <div class="font-ctrl-row">
         <input type="text" class="font-ctrl-input" id="fontfam_${field.id}"
                list="font-families-list" value="${attr(famDef)}"
@@ -335,6 +343,31 @@ function createFieldElement(field) {
     `;
 
     wrap.querySelector(`#field_${field.id}`).addEventListener('input', (e) => {
+      if (field.multiline) {
+        const ta    = e.target;
+        const limit = parseInt(wrap.querySelector(`#charlimit_${field.id}`)?.value, 10);
+
+        if (limit > 0) {
+          const cursor = ta.selectionStart;
+          const raw    = ta.value;
+
+          function wrapAtLimit(str) {
+            return str.split('\n').map(line => {
+              if (line.length <= limit) return line;
+              const chunks = [];
+              for (let i = 0; i < line.length; i += limit) chunks.push(line.slice(i, i + limit));
+              return chunks.join('\n');
+            }).join('\n');
+          }
+
+          const newValue = wrapAtLimit(raw);
+          if (newValue !== raw) {
+            const newCursor = wrapAtLimit(raw.slice(0, cursor)).length;
+            ta.value = newValue;
+            ta.selectionStart = ta.selectionEnd = newCursor;
+          }
+        }
+      }
       setField(field.id, e.target.value);
       renderAll();
     });
