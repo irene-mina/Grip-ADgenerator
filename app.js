@@ -593,7 +593,6 @@ function bindContentEditable(container, templateId) {
 
     el.contentEditable = 'true';
     el.spellcheck      = false;
-    el.style.outline   = 'none';
     el.style.cursor    = 'text';
 
     // Enter → <br> 삽입 (div/p 생성 방지)
